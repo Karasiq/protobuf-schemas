@@ -11,7 +11,7 @@
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
 
-    <groupId>com.wavesplatform</groupId>
+    <groupId>com.github.karasiq</groupId>
     <artifactId>protobuf-schemas</artifactId>
     <packaging>jar</packaging>
     <version>1.2.4</version>
@@ -74,7 +74,8 @@
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <skipStagingRepositoryClose>true</skipStagingRepositoryClose>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
                 </configuration>
             </plugin>
             <plugin>
