@@ -1,8 +1,8 @@
 name: Maven deploy
 
 on:
-  push:
-    branches: [ master ]
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
         run: |
           git fetch --prune --unshallow
           git checkout master
-          ./setversion.sh
+          ./setversion.sh release
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1.4.0
         with:
