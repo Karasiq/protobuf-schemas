@@ -1,4 +1,4 @@
-name: Maven deploy
+name: Maven snapshot
 
 on:
   push:
