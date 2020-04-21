@@ -18,11 +18,22 @@ jobs:
       - name: Set version
         id: version
         run: |
-          echo ${{github.event_name}}
-          echo ${{github.ref}}
-          git fetch --prune --unshallow
-          git checkout master
-          ./setversion.sh snapshot
+          ref="${{github.ref}}"
+          echo $ref
+          branch_regex="refs/heads/node-(\d+)-.*"
+          if [[ "${{github.event_name}}" == "pull_request" ]]; then
+            if [[ $ref =~ $branch_regex ]]; then
+              issue="${BASH_REMATCH[1]}"
+              ./setversion.sh "N$issue"
+            else
+              echo "$ref doesnt match node-1111-smth regex"
+              exit 1
+            fi
+          else
+            git fetch --prune --unshallow
+            git checkout master
+            ./setversion.sh snapshot
+          fi
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1.4.0
         with:
