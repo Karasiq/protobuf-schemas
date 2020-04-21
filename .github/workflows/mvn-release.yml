@@ -17,11 +17,6 @@ jobs:
       - name: Set version
         id: version
         run: |
-          echo ${{github.ref}}
-          git status
-          git describe --tags --long
-          git fetch --prune --unshallow
-          git checkout master
           export git_message=$(git log -1 --pretty=%B)
           version_msg_regex='Version ([0-9]+\.[0-9]+\.?[0-9]*).*'
           if [[ $git_message =~ $version_msg_regex ]]; then
