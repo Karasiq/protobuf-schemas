@@ -20,8 +20,7 @@ jobs:
         run: |
           if [[ "${{github.event_name}}" == "pull_request" ]]; then
             ref="${{github.head_ref}}"
-            echo $ref
-            branch_regex="refs/heads/node-(\d+)-.*"
+            branch_regex="node-(\d+)-.*"
 
             if [[ $ref =~ $branch_regex ]]; then
               issue="${BASH_REMATCH[1]}"
