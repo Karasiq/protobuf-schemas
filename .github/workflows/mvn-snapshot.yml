@@ -24,6 +24,8 @@ jobs:
 
             if [[ $ref =~ $branch_regex ]]; then
               issue="${BASH_REMATCH[1]}"
+              git fetch --prune --unshallow
+              git checkout "$ref"
               ./setversion.sh "N$issue"
             else
               echo "$ref doesnt match node-1111-smth regex"
