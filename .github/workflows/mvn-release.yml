@@ -18,7 +18,14 @@ jobs:
         run: |
           git fetch --prune --unshallow
           git checkout master
-          ./setversion.sh release
+          export git_message=$(git log -1 --pretty=%B)
+          version_msg_regex='Version ([0-9]+\.[0-9]+\.?[0-9]*).*'
+          if [[ $git_message =~ $version_msg_regex ]]; then
+            export version="${BASH_REMATCH[1]}"
+            ./setversion.sh "$version"
+          else
+            ./setversion.sh release
+          fi
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1.4.0
         with:
@@ -26,3 +33,4 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
+          maven_goals_phases: "install" # Test
