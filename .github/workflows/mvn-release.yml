@@ -19,6 +19,7 @@ jobs:
         run: |
           echo ${{github.ref}}
           git status
+          git describe --tags --long
           git fetch --prune --unshallow
           git checkout master
           export git_message=$(git log -1 --pretty=%B)
