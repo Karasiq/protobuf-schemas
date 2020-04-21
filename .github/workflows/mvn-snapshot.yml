@@ -18,10 +18,11 @@ jobs:
       - name: Set version
         id: version
         run: |
-          ref="${{github.ref}}"
-          echo $ref
-          branch_regex="refs/heads/node-(\d+)-.*"
           if [[ "${{github.event_name}}" == "pull_request" ]]; then
+            ref="${{github.head_ref}}"
+            echo $ref
+            branch_regex="refs/heads/node-(\d+)-.*"
+
             if [[ $ref =~ $branch_regex ]]; then
               issue="${BASH_REMATCH[1]}"
               ./setversion.sh "N$issue"
