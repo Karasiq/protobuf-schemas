@@ -36,7 +36,7 @@ elif [[ $git_string =~ $version_regex ]]; then
   if [[ $1 == "release" ]]; then
     postfix=""
     shift
-  elif [[ $1 != "" ]]; then
+  elif [[ $1 != "" && $1 != "snapshot" ]]; then
     postfix="-$1-SNAPSHOT"
   fi
   version_string=$major_version.$minor_version.$patch_version$postfix
