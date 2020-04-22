@@ -34,7 +34,12 @@ jobs:
           else
             git fetch --prune --unshallow
             git checkout master
-            ./setversion.sh snapshot
+            mvn_version=$(grep -Eo '<version>(.*)</version>' pom.xml | head -1)
+            version=$(./setversion.sh snapshot)
+            if [[ $mvn_version != "<version>$version</version>" ]]; then
+              echo "Incorrect version set: $mvn_version"
+              exit 1
+            fi
           fi
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1.4.0
