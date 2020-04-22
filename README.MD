@@ -4,6 +4,7 @@ Waves protobuf schemas repository
 # How to use
 ## Java
 Add dependency to your `pom.xml`
+test
 ```xml
 <dependency>
     <groupId>com.wavesplatform</groupId>
